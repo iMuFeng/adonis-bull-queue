@@ -67,6 +67,9 @@ export class BullManager {
 				} catch (error) {
 					this.logger.error(`Job ${job.name} failed`);
 					this.logger.error(JSON.stringify(error));
+
+					// Let BullMQ knows that the job is failed, and retry it again.
+					throw error;
 				}
 			},
 			{
